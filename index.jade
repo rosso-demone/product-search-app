@@ -1,0 +1,75 @@
+html(lang='en')
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel="stylesheet", href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css")
+    link(rel="stylesheet", href="commonStyle.css")
+  body(ng-app='productApp', ng-cloak='')
+    div(ng-controller="homePageController as homePageCtrl")
+      md-toolbar.md-primary(md-scroll-shrink='')
+        .md-toolbar-tools
+          span.flex Products
+      md-content
+        div.layout-row.layout-align-start-center(style="padding-left:16px;padding-right:16px")
+          div.flex
+            md-input-container.flex
+              //- input(ng-model="homePageCtrl.searchParams.title", placeholder="Search product title", ng-change="homePageCtrl.onChangeSearchTitle()")
+              input(ng-model="homePageCtrl.searchText", placeholder="Search string", ng-change="homePageCtrl.onChangeSearchTitle()")
+              span(style="color:gray;font-size:12px;top: 4px;position: relative;") Use 'AND', 'OR','ABOVE or 'BELOW' to get advanced results
+          //- div(ng-show="(homePageCtrl.productList | filter:homePageCtrl.searchParams.title).length > 0")
+          //- div.layout-row.layout-align-start-center.flex
+          //-   span(style="padding-bottom:24px") Price:
+          //-   md-input-container(style="padding-bottom:26px;")
+          //-     label Range
+          //-     md-select(ng-model="homePageCtrl.priceParams.range", ng-change="homePageCtrl.onChangePriceParam()")
+          //-       md-option(value="BELOW") Below
+          //-       md-option(value="ABOVE") Above
+          //-   div.flex
+          //-     md-input-container
+          //-       label Value
+          //-       input(type="number", ng-model="homePageCtrl.priceParams.value", placeholder="Enter price value ", ng-change="homePageCtrl.onChangePriceParam()")
+          //- div.flex
+          //-   span.layout-row.layout-align-start-center(ng-show="homePageCtrl.productList.length > 0", ng-click="homePageCtrl.toggleColumn()")
+          //-       span Popularity
+          //-       img(ng-if="homePageCtrl.sortOrder === 'dsc'", src="assets/arrow_up_black.png")
+          //-       img(ng-if="homePageCtrl.sortOrder !== 'dsc'", src="assets/arrow_down_black.png")
+        div(ng-if="homePageCtrl.productListLoading === true", layout='row', layout-sm='column', layout-align='space-around')
+          md-progress-circular(md-mode='indeterminate')
+        div(ng-if="homePageCtrl.productListLoading !== true")
+          //- section(ng-if="(homePageCtrl.productList | filter:homePageCtrl.searchParams.title).length === 0", style="padding:16px;")
+          section(ng-if="homePageCtrl.productList.length === 0", style="padding:16px;")
+            //- span No product contains "{{homePageCtrl.searchParams.title}}" in title
+            span No product contains "{{homePageCtrl.searchText}}" in title
+          //- section(ng-if="homePageCtrl.productList.length > 0 && (homePageCtrl.productList | filter:homePageCtrl.searchParams.title).length > 0")
+          section(ng-if="homePageCtrl.productList.length > 0")
+            div.layout-row(style="background-color: lightgray; height: 50px;")
+              span.flex.layout-row.layout-align-start-center(ng-click="homePageCtrl.toggleColumn('title')", style="padding-left:16px;")
+                span Title
+                img(ng-if="homePageCtrl.sortOrder === 'dsc' && homePageCtrl.toggleProperty === 'title'", src="assets/arrow_up_black.png")
+                img(ng-if="homePageCtrl.sortOrder !== 'dsc' && homePageCtrl.toggleProperty === 'title'", src="assets/arrow_down_black.png")
+              span.flex.layout-row.layout-align-start-center(ng-click="homePageCtrl.toggleColumn('price')", style="padding-left:16px;")
+                span Price
+                img(ng-if="homePageCtrl.sortOrder === 'dsc' && homePageCtrl.toggleProperty === 'price'", src="assets/arrow_up_black.png")
+                img(ng-if="homePageCtrl.sortOrder !== 'dsc' && homePageCtrl.toggleProperty === 'price'", src="assets/arrow_down_black.png")
+              //- span.flex.cell-padding Subcategory
+              span.flex.layout-row.layout-align-start-center(ng-click="homePageCtrl.toggleColumn('popularity')", style="padding-left:16px;")
+                span Popularity
+                img(ng-if="homePageCtrl.sortOrder === 'dsc' && homePageCtrl.toggleProperty === 'popularity'", src="assets/arrow_up_black.png")
+                img(ng-if="homePageCtrl.sortOrder !== 'dsc' && homePageCtrl.toggleProperty === 'popularity'", src="assets/arrow_down_black.png")
+            md-virtual-repeat-container(style="height: 600px; width: 100%;")
+              div(md-virtual-repeat="productObj in homePageCtrl.productList", flex="", style="height: 50px;")
+                div.layout-row
+                  span.flex.cell-padding(title="{{productObj.title}}") {{productObj.title}}
+                  span.flex.cell-padding(title="{{productObj.price}}") {{productObj.price}}
+                  //- span.flex.cell-padding(title="{{productObj.subcategory}}") {{productObj.subcategory}}
+                  span.flex.cell-padding(title="{{productObj.popularity}}") {{productObj.popularity}} 
+    //- Angular.js Libraries and Jquery lib
+    //- script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=', crossorigin='anonymous')
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-aria.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-messages.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-route.min.js')
+    //- Angular Material Library
+    script(src='https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js')
+    //- Application js file
+    script(src='app.js')
