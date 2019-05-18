@@ -12,8 +12,8 @@ productApp.factory('productService', ['$http', '$q', function ($http, $q) {
             //         'Access-Control-Allow-Credentials': true
             //     }
             // };
-            // return $http.get('products.json').then(function (response) {
-            return $http.get('https://s3-us-west-2.amazonaws.com/cp-angular-test/assignment.json').then(function (response) {
+            return $http.get('products.json').then(function (response) {
+            // return $http.get('https://s3-us-west-2.amazonaws.com/cp-angular-test/assignment.json').then(function (response) {
                 if (response && response.status === 200 && response.data) {
                     return response.data;
                 }
