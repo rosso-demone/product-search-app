@@ -7,13 +7,13 @@ productApp.config(['$httpProvider', function ($httpProvider) {
 productApp.factory('productService', ['$http', '$q', function ($http, $q) {
     return {
         getProductList: function () {
-            // var config = {
-            //     'header': {
-            //         'Access-Control-Allow-Credentials': true
-            //     }
-            // };
+            var config = {
+                'header': {
+                    'Access-Control-Allow-Credentials': true
+                }
+            };
             // return $http.get('products.json').then(function (response) {
-            return $http.get('https://s3.amazonaws.com/open-to-cors/assignment.json').then(function (response) {
+            return $http.get('https://s3.amazonaws.com/open-to-cors/assignment.json', config).then(function (response) {
                 if (response && response.status === 200 && response.data) {
                     return response.data;
                 }
