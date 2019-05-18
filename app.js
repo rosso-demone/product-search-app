@@ -12,8 +12,8 @@ productApp.factory('productService', ['$http', '$q', function ($http, $q) {
             //         'Access-Control-Allow-Credentials': true
             //     }
             // };
-            // return $http.get('https://s3.ap-south-1.amazonaws.com/ss-local-files/products.json', config).then(function (response) {
-            return $http.get('products.json').then(function (response) {
+            // return $http.get('products.json').then(function (response) {
+            return $http.get('https://s3.amazonaws.com/open-to-cors/assignment.json').then(function (response) {
                 if (response && response.status === 200 && response.data) {
                     return response.data;
                 }
